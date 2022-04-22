@@ -24,9 +24,12 @@ class FeatureFlagDependencyProvider extends AbstractDependencyProvider
 
     private function addStorageClient(Container $container): Container
     {
-        $container->set(static::STORAGE_CLIENT, function (Container $container): StorageClientInterface {
-            return $container->getLocator()->storage()->client();
-        });
+        $container->set(
+            static::STORAGE_CLIENT, function (Container $container): StorageClientInterface {
+                //@phpstan-ignore-next-line
+                return $container->getLocator()->storage()->client();
+            }
+        );
 
         return $container;
     }

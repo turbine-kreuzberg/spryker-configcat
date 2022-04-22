@@ -199,7 +199,8 @@ class ConfigCatCacheTest extends TestCase
 
         $configCatCache = new ConfigCatCache($storageClientMock);
 
-        self::assertEquals(false,
+        self::assertEquals(
+            false,
             $configCatCache->setMultiple(
                 [
                     'testKey1' => 'testValue1',
@@ -231,8 +232,10 @@ class ConfigCatCacheTest extends TestCase
 
         $configCatCache = new ConfigCatCache($storageClientMock);
 
-        self::assertEquals(true,
-            $configCatCache->deleteMultiple(['testKey1','testKey2','testKey3']));
+        self::assertEquals(
+            true,
+            $configCatCache->deleteMultiple(['testKey1','testKey2','testKey3'])
+        );
     }
 
     public function testDeleteMultipleMethodWithWrongParameterTypeThrowsException(): void

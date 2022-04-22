@@ -4,14 +4,14 @@ namespace TurbineKreuzberg\Client\FeatureFlag\Cache;
 
 use Exception;
 use Psr\SimpleCache\CacheInterface;
-use Spryker\Client\Storage\StorageClient;
+use Spryker\Client\Storage\StorageClientInterface;
 use TurbineKreuzberg\Client\FeatureFlag\Exception\InvalidArgumentException;
 
 class ConfigCatCache implements CacheInterface
 {
-    private StorageClient $storageClient;
+    private StorageClientInterface $storageClient;
 
-    public function __construct(StorageClient $storageClient)
+    public function __construct(StorageClientInterface $storageClient)
     {
         $this->storageClient = $storageClient;
     }
@@ -32,6 +32,7 @@ class ConfigCatCache implements CacheInterface
         }
 
         try {
+            /** @var int|null $ttl */
             $this->storageClient->set($key, $value, $ttl);
 
             return true;
@@ -56,15 +57,17 @@ class ConfigCatCache implements CacheInterface
         return $this->storageClient->deleteAll() > 0;
     }
 
+    //@phpstan-ignore-next-line
     public function getMultiple($keys, $default = null): array
     {
         if (!is_array($keys)) {
-           throw new InvalidArgumentException();
+            throw new InvalidArgumentException();
         }
 
         return $this->storageClient->getMulti($keys);
     }
 
+    //@phpstan-ignore-next-line
     public function setMultiple($values, $ttl = null): bool
     {
         if (!is_array($values)) {
@@ -80,6 +83,7 @@ class ConfigCatCache implements CacheInterface
         }
     }
 
+    //@phpstan-ignore-next-line
     public function deleteMultiple($keys): bool
     {
         if (!is_array($keys)) {

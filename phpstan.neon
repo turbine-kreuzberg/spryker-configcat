@@ -6,6 +6,5 @@ parameters:
 
     excludePaths:
         - '%rootDir%/../../../src/Generated/*'
-        - '%rootDir%/../../../tests/_data/*'
-        - '%rootDir%/../../../tests/_output/*'
-        - '%rootDir%/../../../tests/_support/*'
+        - %rootDir%/../../../tests/*
+        - %rootDir%/../../../config/*
