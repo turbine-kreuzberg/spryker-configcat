@@ -1,0 +1,5 @@
+.idea/
+vendor/
+tests/**/_generated/**
+/tests/.phpunit.result.cache
+/tests/.phpunit.cache

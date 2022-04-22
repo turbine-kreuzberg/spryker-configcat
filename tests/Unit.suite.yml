@@ -1,0 +1,17 @@
+# Codeception Test Suite Configuration
+#
+# Suite for Unit or integration tests.
+
+actor: UnitTester
+modules:
+    enabled:
+        - Asserts
+        - \Helper\Unit
+        - \SprykerTest\Shared\Testify\Helper\Environment
+        - \SprykerTest\Shared\Testify\Helper\ConfigHelper
+        - \SprykerTest\Shared\Testify\Helper\LocatorHelper:
+              projectNamespaces: [ 'TurbineKreuzberg' ]
+        - \SprykerTest\Shared\Testify\Helper\FactoryHelper
+        - \SprykerTest\Shared\Testify\Helper\DependencyHelper
+
+    step_decorators: ~

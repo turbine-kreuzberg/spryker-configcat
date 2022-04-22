@@ -1,0 +1,11 @@
+parameters:
+    level: 8
+    paths:
+        - src/
+        - tests/
+
+    excludePaths:
+        - '%rootDir%/../../../src/Generated/*'
+        - '%rootDir%/../../../tests/_data/*'
+        - '%rootDir%/../../../tests/_output/*'
+        - '%rootDir%/../../../tests/_support/*'

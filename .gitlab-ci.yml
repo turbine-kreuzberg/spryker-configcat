@@ -1,0 +1,6 @@
+stages:
+  - build
+
+include:
+  - template: Composer.gitlab-ci.yml
+
