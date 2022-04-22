@@ -45,4 +45,5 @@ sniff-fix-project: ##@development run code sniffer
 
 install-git-hooks: ##@development install git hooks
 	git config core.hooksPath .githooks
-.PHONY: install-git-hooks-include
+	@if [ ${UNAME} = "Darwin" ]; then cp -f .githooks/* .git/hooks; else cp -f -l .githooks/* .git/hooks; fi
+.PHONY: install-git-hooks
