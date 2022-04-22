@@ -103,4 +103,5 @@ class ConfigCatCache implements CacheInterface
 
         return $this->storageClient->get($key) !== '';
     }
+
 }
