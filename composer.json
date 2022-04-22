@@ -1,5 +1,5 @@
 {
-  "name": "turbine-kreuzberg/spryker-config-cat",
+  "name": "turbine-kreuzberg/spryker-configcat",
   "description": "ConfigCat wrapper for spryker",
   "minimum-stability": "dev",
   "prefer-stable": true,
@@ -30,8 +30,28 @@
   },
   "authors": [
     {
+      "name": "Ben Kuhn",
+      "email": "ben.kuhn@turbinekreuzberg.com"
+    },
+    {
+      "name": "Edward Mateja",
+      "email": "edward.mateja@turbinekreuzberg.com"
+    },
+    {
       "name": "Firat Cimen",
       "email": "firat.cimen@turbinekreuzberg.com"
+    },
+    {
+      "name": "Christian Muellenhagen",
+      "email": "christian.muellenhagen@turbinekreuzberg.com"
+    },
+    {
+      "name": "Helder Correia",
+      "email": "helder.correia@turbinekreuzberg.com"
+    },
+    {
+      "name": "Serhii Nefodov",
+      "email": "serhii.nefodov@turbinekreuzberg.com"
     }
   ],
   "require": {

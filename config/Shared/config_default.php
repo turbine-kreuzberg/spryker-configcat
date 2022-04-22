@@ -1,6 +1,5 @@
 <?php
 
-
 use Spryker\Shared\Kernel\KernelConstants;
 use TurbineKreuzberg\Shared\FeatureFlag\FeatureFlagConstants;
 

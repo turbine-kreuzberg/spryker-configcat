@@ -1,6 +1,6 @@
 MIT License (MIT)
 
-Copyright (c) Turbine Kreuzberg (<ben.kuhn@turbinekreuzberg.com>, <edward.mateja@turbinekreuzberg.com>, <firat.cimen@turbinekreuzberg.com>, <christian.muellenhagen@turbinekreuzberg.com>,  <helder.correia@turbinekreuzberg.com>)
+Copyright (c) Turbine Kreuzberg 2022 (<ben.kuhn@turbinekreuzberg.com>, <edward.mateja@turbinekreuzberg.com>, <firat.cimen@turbinekreuzberg.com>, <christian.muellenhagen@turbinekreuzberg.com>,  <helder.correia@turbinekreuzberg.com>),  <serhii.nefodov@turbinekreuzberg.com>)
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal

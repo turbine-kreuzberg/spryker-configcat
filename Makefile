@@ -46,6 +46,3 @@ sniff-fix-project: ##@development run code sniffer
 install-git-hooks: ##@development install git hooks
 	git config core.hooksPath .githooks
 .PHONY: install-git-hooks-include
-
-%:
-	@:
