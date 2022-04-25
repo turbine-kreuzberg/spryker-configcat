@@ -9,6 +9,9 @@ use TurbineKreuzberg\Client\FeatureFlag\FeatureFlagFactory;
 
 class ConfigCatClientTest extends TestCase
 {
+    /**
+     * @return void
+     */
     public function testIsFeatureOn(): void
     {
         $configCatClientMock = $this->createMock(ConfigCatClient::class);
@@ -29,6 +32,9 @@ class ConfigCatClientTest extends TestCase
         self::assertEquals(true, $featureFlagClient->isFeatureOn('testFeatureFlag'));
     }
 
+    /**
+     * @return void
+     */
     public function testIsFeatureOff(): void
     {
         $configCatClientMock = $this->createMock(ConfigCatClient::class);

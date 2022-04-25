@@ -17,8 +17,7 @@
         <exclude name="Generic.Commenting.DocComment"/>
     </rule>
 
-    <!-- @todo:pick only needed rules -->
-    <!--<rule ref="vendor/spryker/code-sniffer/Spryker/ruleset.xml"/>-->
+    <rule ref="vendor/spryker/code-sniffer/Spryker/ruleset.xml"/>
 
     <rule ref="Generic.Files.LineLength">
         <properties>

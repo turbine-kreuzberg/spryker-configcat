@@ -15,6 +15,9 @@ use TurbineKreuzberg\Client\FeatureFlag\Cache\ConfigCatCache;
  */
 class FeatureFlagFactory extends AbstractFactory
 {
+    /**
+     * @return \ConfigCat\ConfigCatClient
+     */
     public function createConfigCatClient(): ConfigCatClient
     {
         return new ConfigCatClient(
@@ -23,17 +26,23 @@ class FeatureFlagFactory extends AbstractFactory
                 ClientOptions::LOG_LEVEL => LogLevel::INFO,
                 ClientOptions::CACHE => new Psr16Cache($this->createConfigCatCache()),
                 ClientOptions::CACHE_REFRESH_INTERVAL => $this->getConfig()->getCacheRefreshInterval(),
-            ]
+            ],
         );
     }
 
+    /**
+     * @return \TurbineKreuzberg\Client\FeatureFlag\Cache\ConfigCatCache
+     */
     private function createConfigCatCache(): ConfigCatCache
     {
         return new ConfigCatCache(
-            $this->getStorageClient()
+            $this->getStorageClient(),
         );
     }
 
+    /**
+     * @return \Spryker\Client\Storage\StorageClientInterface
+     */
     private function getStorageClient(): StorageClientInterface
     {
         return $this->getProvidedDependency(FeatureFlagDependencyProvider::STORAGE_CLIENT);

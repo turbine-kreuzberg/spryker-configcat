@@ -9,6 +9,11 @@ use Spryker\Client\Kernel\AbstractClient;
  */
 class FeatureFlagClient extends AbstractClient implements FeatureFlagClientInterface
 {
+    /**
+     * @param string $featureName
+     *
+     * @return bool
+     */
     public function isFeatureOn(string $featureName): bool
     {
         return $this->getFactory()->createConfigCatClient()->getValue($featureName, false);

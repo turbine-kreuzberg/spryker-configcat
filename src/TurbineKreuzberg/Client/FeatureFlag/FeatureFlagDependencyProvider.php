@@ -13,6 +13,11 @@ class FeatureFlagDependencyProvider extends AbstractDependencyProvider
      */
     public const STORAGE_CLIENT = 'STORAGE_CLIENT';
 
+    /**
+     * @param \Spryker\Client\Kernel\Container $container
+     *
+     * @return \Spryker\Client\Kernel\Container
+     */
     public function provideServiceLayerDependencies(Container $container): Container
     {
         $container = parent::provideServiceLayerDependencies($container);
@@ -22,13 +27,19 @@ class FeatureFlagDependencyProvider extends AbstractDependencyProvider
         return $container;
     }
 
+    /**
+     * @param \Spryker\Client\Kernel\Container $container
+     *
+     * @return \Spryker\Client\Kernel\Container
+     */
     private function addStorageClient(Container $container): Container
     {
         $container->set(
-            static::STORAGE_CLIENT, function (Container $container): StorageClientInterface {
+            static::STORAGE_CLIENT,
+            function (Container $container): StorageClientInterface {
                 //@phpstan-ignore-next-line
                 return $container->getLocator()->storage()->client();
-            }
+            },
         );
 
         return $container;

@@ -11,11 +11,22 @@ class ConfigCatCache implements CacheInterface
 {
     private StorageClientInterface $storageClient;
 
+    /**
+     * @param \Spryker\Client\Storage\StorageClientInterface $storageClient
+     */
     public function __construct(StorageClientInterface $storageClient)
     {
-             $this->storageClient = $storageClient;
+        $this->storageClient = $storageClient;
     }
 
+    /**
+     * @param string $key
+     * @param mixed $default
+     *
+     * @throws \TurbineKreuzberg\Client\FeatureFlag\Exception\InvalidArgumentException
+     *
+     * @return mixed
+     */
     public function get($key, $default = null): mixed
     {
         if (!is_string($key)) {
@@ -25,6 +36,15 @@ class ConfigCatCache implements CacheInterface
         return $this->storageClient->get($key);
     }
 
+    /**
+     * @param string $key
+     * @param mixed $value
+     * @param int|null $ttl
+     *
+     * @throws \TurbineKreuzberg\Client\FeatureFlag\Exception\InvalidArgumentException
+     *
+     * @return bool
+     */
     public function set($key, $value, $ttl = null): bool
     {
         if (!is_string($key)) {
@@ -32,7 +52,6 @@ class ConfigCatCache implements CacheInterface
         }
 
         try {
-            /** @var int|null $ttl */
             $this->storageClient->set($key, $value, $ttl);
 
             return true;
@@ -41,6 +60,13 @@ class ConfigCatCache implements CacheInterface
         }
     }
 
+    /**
+     * @param string $key
+     *
+     * @throws \TurbineKreuzberg\Client\FeatureFlag\Exception\InvalidArgumentException
+     *
+     * @return bool
+     */
     public function delete($key): bool
     {
         if (!is_string($key)) {
@@ -52,12 +78,22 @@ class ConfigCatCache implements CacheInterface
         return true;
     }
 
+    /**
+     * @return bool
+     */
     public function clear(): bool
     {
         return $this->storageClient->deleteAll() > 0;
     }
 
-    //@phpstan-ignore-next-line
+    /**
+     * @param array<string> $keys
+     * @param mixed $default
+     *
+     * @throws \TurbineKreuzberg\Client\FeatureFlag\Exception\InvalidArgumentException
+     *
+     * @return array<string>
+     */
     public function getMultiple($keys, $default = null): array
     {
         if (!is_array($keys)) {
@@ -67,7 +103,14 @@ class ConfigCatCache implements CacheInterface
         return $this->storageClient->getMulti($keys);
     }
 
-    //@phpstan-ignore-next-line
+    /**
+     * @param array<string> $values
+     * @param \DateInterval|int|null $ttl
+     *
+     * @throws \TurbineKreuzberg\Client\FeatureFlag\Exception\InvalidArgumentException
+     *
+     * @return bool
+     */
     public function setMultiple($values, $ttl = null): bool
     {
         if (!is_array($values)) {
@@ -83,7 +126,13 @@ class ConfigCatCache implements CacheInterface
         }
     }
 
-    //@phpstan-ignore-next-line
+    /**
+     * @param array<string> $keys
+     *
+     * @throws \TurbineKreuzberg\Client\FeatureFlag\Exception\InvalidArgumentException
+     *
+     * @return bool
+     */
     public function deleteMultiple($keys): bool
     {
         if (!is_array($keys)) {
@@ -95,6 +144,13 @@ class ConfigCatCache implements CacheInterface
         return true;
     }
 
+    /**
+     * @param string $key
+     *
+     * @throws \TurbineKreuzberg\Client\FeatureFlag\Exception\InvalidArgumentException
+     *
+     * @return bool
+     */
     public function has($key): bool
     {
         if (!is_string($key)) {
