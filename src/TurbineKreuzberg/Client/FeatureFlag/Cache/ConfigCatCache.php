@@ -13,7 +13,7 @@ class ConfigCatCache implements CacheInterface
 
     public function __construct(StorageClientInterface $storageClient)
     {
-        $this->storageClient = $storageClient;
+             $this->storageClient = $storageClient;
     }
 
     public function get($key, $default = null): mixed
