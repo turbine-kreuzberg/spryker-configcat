@@ -32,8 +32,11 @@ jobs:
     - name: Install dependencies
       run: composer install --prefer-dist --no-progress
 
-    # Add a test script to composer.json, for instance: "test": "vendor/bin/phpunit"
-    # Docs: https://getcomposer.org/doc/articles/scripts.md
+    - name: Run phpstan
+      run: php vendor/bin/phpstan analyse
 
-    # - name: Run test suite
-    #   run: composer run-script test
+    - name: Run codesniffer
+      run: php vendor/bin/phpcs src/ tests/ --standard=./config/codesniffer_ruleset.xml
+
+    - name: Run tests
+      run: php vendor/bin/codecept run
