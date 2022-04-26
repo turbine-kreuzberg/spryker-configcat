@@ -1,5 +1,7 @@
 # Spryker FeatureFlag
 
+[![tests](https://github.com/turbine-kreuzberg/spryker-configcat/actions/workflows/tests.yml/badge.svg)](https://github.com/turbine-kreuzberg/spryker-configcat/actions/workflows/tests.yml)
+
 This package provides an integration for [ConfigCat](https://configcat.com/) in Spryker.
 
 * [Installation](#installation)
