@@ -2,6 +2,7 @@
 
 namespace TurbineKreuzberg\Client\FeatureFlag;
 
+use ConfigCat\User;
 use Spryker\Client\Kernel\AbstractClient;
 
 /**
@@ -17,5 +18,16 @@ class FeatureFlagClient extends AbstractClient implements FeatureFlagClientInter
     public function isFeatureOn(string $featureName): bool
     {
         return $this->getFactory()->createConfigCatClient()->getValue($featureName, false);
+    }
+
+    /**
+     * @param string $featureName
+     * @param \ConfigCat\User $user
+     *
+     * @return bool
+     */
+    public function isFeatureOnForUser(string $featureName, User $user): bool
+    {
+        return $this->getFactory()->createConfigCatClient()->getValue($featureName, false, $user);
     }
 }
