@@ -4,22 +4,22 @@ composer: ##@development running your composer commands with arguments (e.g. mak
 	docker-compose exec -T php composer $(filter-out $@,$(MAKECMDGOALS))
 .PHONY: composer
 
-cli: ##@development
+cli: ##@development login to bash shell on the cli container, here you can run development commands
 	docker-compose exec php bash
 .PHONY: cli
 
-setup: ##@setup install dependencies
+setup: ##@setup create dev environment and setup the application for the first time
 	make install-git-hooks
 	docker-compose up -d
 	docker-compose exec -T php composer install
 	docker-compose exec -T php vendor/bin/codecept build
 .PHONY: setup
 
-start: ##@setup install dependencies
+start: ##@setup start the application server
 	docker-compose up -d
 .PHONY: start
 
-stop: ##@setup install dependencies
+stop: ##@setup stop the application servers
 	docker-compose stop -t 1
 .PHONY: stop
 
@@ -27,7 +27,7 @@ tests: ##@development run tests
 	docker-compose exec -T php vendor/bin/codecept run
 .PHONY: tests
 
-test-coverage: ##@development run tests
+test-coverage: ##@development run tests with code coverage
 	docker-compose exec -T php vendor/bin/phpunit --colors=always -c phpunit.xml --coverage-text --coverage-html=tests/_output
 .PHONY: test-coverage
 
@@ -39,7 +39,7 @@ sniff-project: ##@development run code sniffer
 	docker-compose exec -T php vendor/bin/phpcs src/ tests/ --standard=./config/codesniffer_ruleset.xml
 .PHONY: sniff-project
 
-sniff-fix-project: ##@development run code sniffer
+sniff-fix-project: ##@development run and fix code sniffer
 	docker-compose exec -T php vendor/bin/phpcbf src/ tests/ --standard=./config/codesniffer_ruleset.xml
 .PHONY: sniff-fix-project
 
