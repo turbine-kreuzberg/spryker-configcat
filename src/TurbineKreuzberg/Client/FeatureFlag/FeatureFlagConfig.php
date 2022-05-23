@@ -22,4 +22,28 @@ class FeatureFlagConfig extends AbstractBundleConfig
     {
         return (int)$this->get(FeatureFlagConstants::CACHE_REFRESH_INTERVAL, 2592000);
     }
+
+    /**
+     * @param string $featureName
+     *
+     * @return bool
+     */
+    public function isFeatureFlagExistInConfigFile(string $featureName): bool
+    {
+        $configCatFeatureFlags = $this->get(FeatureFlagConstants::CONFIG_CAT_FEATURE_FLAGS, []);
+
+        return isset($configCatFeatureFlags[$featureName]);
+    }
+
+    /**
+     * @param string $featureName
+     *
+     * @return bool
+     */
+    public function getFeatureFlagFromConfigFile(string $featureName): bool
+    {
+        $configCatFeatureFlags = $this->get(FeatureFlagConstants::CONFIG_CAT_FEATURE_FLAGS);
+
+        return (bool)$configCatFeatureFlags[$featureName];
+    }
 }

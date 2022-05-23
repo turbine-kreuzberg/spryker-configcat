@@ -17,7 +17,7 @@ class FeatureFlagClient extends AbstractClient implements FeatureFlagClientInter
      */
     public function isFeatureOn(string $featureName): bool
     {
-        return $this->getFactory()->createConfigCatClient()->getValue($featureName, false);
+        return $this->getFactory()->createFeatureFlagReader()->getValue($featureName);
     }
 
     /**
@@ -28,6 +28,6 @@ class FeatureFlagClient extends AbstractClient implements FeatureFlagClientInter
      */
     public function isFeatureOnForUser(string $featureName, User $user): bool
     {
-        return $this->getFactory()->createConfigCatClient()->getValue($featureName, false, $user);
+        return $this->getFactory()->createFeatureFlagReader()->getValue($featureName, $user);
     }
 }

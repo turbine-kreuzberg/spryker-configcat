@@ -9,6 +9,7 @@ use ConfigCat\Log\LogLevel;
 use Spryker\Client\Kernel\AbstractFactory;
 use Spryker\Client\Storage\StorageClientInterface;
 use TurbineKreuzberg\Client\FeatureFlag\Cache\ConfigCatCache;
+use TurbineKreuzberg\Client\FeatureFlag\Reader\FeatureFlagReader;
 
 /**
  * @method \TurbineKreuzberg\Client\FeatureFlag\FeatureFlagConfig getConfig()
@@ -16,9 +17,20 @@ use TurbineKreuzberg\Client\FeatureFlag\Cache\ConfigCatCache;
 class FeatureFlagFactory extends AbstractFactory
 {
     /**
+     * @return \TurbineKreuzberg\Client\FeatureFlag\Reader\FeatureFlagReader
+     */
+    public function createFeatureFlagReader(): FeatureFlagReader
+    {
+        return new FeatureFlagReader(
+            $this->createConfigCatClient(),
+            $this->getConfig(),
+        );
+    }
+
+    /**
      * @return \ConfigCat\ConfigCatClient
      */
-    public function createConfigCatClient(): ConfigCatClient
+    private function createConfigCatClient(): ConfigCatClient
     {
         return new ConfigCatClient(
             $this->getConfig()->getSdkKey(),

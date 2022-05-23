@@ -3,10 +3,10 @@
 namespace Unit\TurbineKreuzberg\Client\FeatureFlag;
 
 use Codeception\PHPUnit\TestCase;
-use ConfigCat\ConfigCatClient;
 use ConfigCat\User;
 use TurbineKreuzberg\Client\FeatureFlag\FeatureFlagClient;
 use TurbineKreuzberg\Client\FeatureFlag\FeatureFlagFactory;
+use TurbineKreuzberg\Client\FeatureFlag\Reader\FeatureFlagReader;
 
 class FeatureFlagClientTest extends TestCase
 {
@@ -15,17 +15,17 @@ class FeatureFlagClientTest extends TestCase
      */
     public function testIsFeatureOn(): void
     {
-        $configCatClientMock = $this->createMock(ConfigCatClient::class);
-        $configCatClientMock
+        $featureFlagReaderMock = $this->createMock(FeatureFlagReader::class);
+        $featureFlagReaderMock
             ->expects(self::once())
             ->method('getValue')
-            ->with('testFeatureFlag', false)
+            ->with('testFeatureFlag', null)
             ->willReturn(true);
         $featureFlagClientFactoryMock = $this->createMock(FeatureFlagFactory::class);
         $featureFlagClientFactoryMock
             ->expects(self::once())
-            ->method('createConfigCatClient')
-            ->willReturn($configCatClientMock);
+            ->method('createFeatureFlagReader')
+            ->willReturn($featureFlagReaderMock);
 
         $featureFlagClient = new FeatureFlagClient();
         $featureFlagClient->setFactory($featureFlagClientFactoryMock);
@@ -38,17 +38,17 @@ class FeatureFlagClientTest extends TestCase
      */
     public function testIsFeatureOff(): void
     {
-        $configCatClientMock = $this->createMock(ConfigCatClient::class);
-        $configCatClientMock
+        $featureFlagReaderMock = $this->createMock(FeatureFlagReader::class);
+        $featureFlagReaderMock
             ->expects(self::once())
             ->method('getValue')
-            ->with('testFeatureFlag', false)
+            ->with('testFeatureFlag', null)
             ->willReturn(false);
         $featureFlagClientFactoryMock = $this->createMock(FeatureFlagFactory::class);
         $featureFlagClientFactoryMock
             ->expects(self::once())
-            ->method('createConfigCatClient')
-            ->willReturn($configCatClientMock);
+            ->method('createFeatureFlagReader')
+            ->willReturn($featureFlagReaderMock);
 
         $featureFlagClient = new FeatureFlagClient();
         $featureFlagClient->setFactory($featureFlagClientFactoryMock);
@@ -61,17 +61,17 @@ class FeatureFlagClientTest extends TestCase
      */
     public function testIsFeatureFlagOnForUser(): void
     {
-        $configCatClientMock = $this->createMock(ConfigCatClient::class);
-        $configCatClientMock
+        $featureFlagReaderMock = $this->createMock(FeatureFlagReader::class);
+        $featureFlagReaderMock
             ->expects(self::once())
             ->method('getValue')
-            ->with('testFeatureFlag', false, new User(''))
+            ->with('testFeatureFlag', new User(''))
             ->willReturn(false);
         $featureFlagClientFactoryMock = $this->createMock(FeatureFlagFactory::class);
         $featureFlagClientFactoryMock
             ->expects(self::once())
-            ->method('createConfigCatClient')
-            ->willReturn($configCatClientMock);
+            ->method('createFeatureFlagReader')
+            ->willReturn($featureFlagReaderMock);
 
         $featureFlagClient = new FeatureFlagClient();
         $featureFlagClient->setFactory($featureFlagClientFactoryMock);

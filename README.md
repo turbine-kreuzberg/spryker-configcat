@@ -46,6 +46,18 @@ if ($featureFlagClient->isFeatureOn('testFeature')) {
     echo('Feature is on!');
 }
 ```
+## Tests
+To have feature flag independent of configCat in tests you can set a default value 
+in configFile
+
+```php
+$config[FeatureFlagConstants::CONFIG_CAT_FEATURE_FLAGS] = [
+    'feature_flag_in_config_file' => true,
+    'feature flag 2' => false,
+    'feature flag 3' => true,
+];
+```
+
 ## Credits
 
 - [All Contributors](../../../-/graphs/main)
