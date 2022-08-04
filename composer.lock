@@ -4,33 +4,33 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "21477861d0fcac321637ebfb6b981932",
+    "content-hash": "2ef07d89f2e29c64b7934ee08c54ec51",
     "packages": [
         {
             "name": "configcat/configcat-client",
-            "version": "v5.4.1",
+            "version": "v6.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/configcat/php-sdk.git",
-                "reference": "48dcf3f6e77dcf1afbfc6343025cdc5265000d79"
+                "reference": "cfb416dfb82b5e206567403e159af84b501f743e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/configcat/php-sdk/zipball/48dcf3f6e77dcf1afbfc6343025cdc5265000d79",
-                "reference": "48dcf3f6e77dcf1afbfc6343025cdc5265000d79",
+                "url": "https://api.github.com/repos/configcat/php-sdk/zipball/cfb416dfb82b5e206567403e159af84b501f743e",
+                "reference": "cfb416dfb82b5e206567403e159af84b501f743e",
                 "shasum": ""
             },
             "require": {
                 "ext-json": "*",
                 "guzzlehttp/guzzle": "^6.3 || ^7.0",
                 "monolog/monolog": "^1.6|^2.0",
-                "php": ">=5.5",
+                "php": ">=7.1",
                 "psr/log": "^1.1",
-                "z4kn4fein/php-semver": "^1.1"
+                "z4kn4fein/php-semver": "^1.2"
             },
             "require-dev": {
                 "illuminate/cache": "^5.0",
-                "phpunit/phpunit": "~4.0",
+                "phpunit/phpunit": "~7.0|^8",
                 "psr/cache": "^1.0",
                 "psr/simple-cache": "^1.0",
                 "squizlabs/php_codesniffer": "3.5.1"
@@ -67,9 +67,9 @@
             ],
             "support": {
                 "issues": "https://github.com/configcat/php-sdk/issues",
-                "source": "https://github.com/configcat/php-sdk/tree/v5.4.1"
+                "source": "https://github.com/configcat/php-sdk/tree/v6.0.0"
             },
-            "time": "2022-03-10T16:45:23+00:00"
+            "time": "2022-03-21T11:29:05+00:00"
         },
         {
             "name": "everon/collection",
@@ -11195,5 +11195,5 @@
     "platform-overrides": {
         "php": "8.0.14"
     },
-    "plugin-api-version": "2.3.0"
+    "plugin-api-version": "2.2.0"
 }

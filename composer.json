@@ -56,7 +56,7 @@
   ],
   "require": {
     "php": ">=8",
-    "configcat/configcat-client": "^5.4.0",
+    "configcat/configcat-client": "^6.0.0",
     "psr/simple-cache": "^1.0.1",
     "spryker/kernel": "^3.54.0",
     "spryker/storage": "^3.18.0"
