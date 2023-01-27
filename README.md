@@ -12,17 +12,9 @@ This package provides an integration for [ConfigCat](https://configcat.com/) in 
 
 ## Installation
 
-- If this is the first package you are installing from the Turbine Kreuzberg Gitlab package registry,
-  you have to add the package registry to your `composer.json`
-  (the key `txb` you can change to something else if you want/need to)
-```
-composer config repositories.txb composer https://git.votum-media.net/api/v4/group/788/-/packages/composer/
-
-composer config gitlab-domains git.votum-media.net
-```
 - Install the package via composer
 ```
-composer require turbine-kreuzberg/spryker-config-cat
+composer require turbine-kreuzberg/spryker-configcat
 ```
 
 ## Configuration
