@@ -16,9 +16,6 @@ use TurbineKreuzberg\Client\FeatureFlag\Reader\FeatureFlagReader;
  */
 class FeatureFlagFactory extends AbstractFactory
 {
-    /**
-     * @return \TurbineKreuzberg\Client\FeatureFlag\Reader\FeatureFlagReader
-     */
     public function createFeatureFlagReader(): FeatureFlagReader
     {
         return new FeatureFlagReader(
@@ -27,9 +24,6 @@ class FeatureFlagFactory extends AbstractFactory
         );
     }
 
-    /**
-     * @return \ConfigCat\ConfigCatClient
-     */
     private function createConfigCatClient(): ConfigCatClient
     {
         return new ConfigCatClient(
@@ -42,9 +36,6 @@ class FeatureFlagFactory extends AbstractFactory
         );
     }
 
-    /**
-     * @return \TurbineKreuzberg\Client\FeatureFlag\Cache\ConfigCatCache
-     */
     private function createConfigCatCache(): ConfigCatCache
     {
         return new ConfigCatCache(
@@ -52,9 +43,6 @@ class FeatureFlagFactory extends AbstractFactory
         );
     }
 
-    /**
-     * @return \Spryker\Client\Storage\StorageClientInterface
-     */
     private function getStorageClient(): StorageClientInterface
     {
         return $this->getProvidedDependency(FeatureFlagDependencyProvider::STORAGE_CLIENT);

@@ -10,9 +10,6 @@ use TurbineKreuzberg\Client\FeatureFlag\Reader\FeatureFlagReader;
 
 class FeatureFlagReaderTest extends Unit
 {
-    /**
-     * @return void
-     */
     public function testReaderGetFeatureFlagValueFromLocalConfigurationFile(): void
     {
         $configCatClientMock = $this->createMock(ConfigCatClient::class);
@@ -27,9 +24,6 @@ class FeatureFlagReaderTest extends Unit
         self::assertTrue($featureFlagReader->getValue('feature_flag_in_config_file'));
     }
 
-    /**
-     * @return void
-     */
     public function testReaderGetFeatureFlagValueFromConfigCatClientWithUser(): void
     {
         $configCatClientMock = $this->createMock(ConfigCatClient::class);
@@ -46,9 +40,6 @@ class FeatureFlagReaderTest extends Unit
         self::assertTrue($featureFlagReader->getValue('feature_flag_name', new User('id')));
     }
 
-    /**
-     * @return void
-     */
     public function testReaderGetFeatureFlagValueFromConfigCatClientWithoutUser(): void
     {
         $configCatClientMock = $this->createMock(ConfigCatClient::class);

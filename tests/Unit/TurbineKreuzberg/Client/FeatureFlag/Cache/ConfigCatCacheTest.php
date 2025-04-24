@@ -3,16 +3,13 @@
 namespace Unit\TurbineKreuzberg\Client\FeatureFlag\Cache;
 
 use Codeception\PHPUnit\TestCase;
+use DateInterval;
 use Exception;
 use Spryker\Client\Storage\StorageClient;
 use TurbineKreuzberg\Client\FeatureFlag\Cache\ConfigCatCache;
-use TurbineKreuzberg\Client\FeatureFlag\Exception\InvalidArgumentException;
 
 class ConfigCatCacheTest extends TestCase
 {
-    /**
-     * @return void
-     */
     public function testGetMethodReturnsExpectedValue(): void
     {
         $storageClientMock = $this->createMock(StorageClient::class);
@@ -26,25 +23,6 @@ class ConfigCatCacheTest extends TestCase
         self::assertEquals('returnTest', $configCatCache->get('testKey'));
     }
 
-    /**
-     * @return void
-     */
-    public function testGetMethodWithWrongParameterTypeThrowsException(): void
-    {
-        $storageClientMock = $this->createMock(StorageClient::class);
-        $storageClientMock->expects(self::never())
-            ->method('get');
-
-        $this->expectException(InvalidArgumentException::class);
-
-        $configCatCache = new ConfigCatCache($storageClientMock);
-        //@phpstan-ignore-next-line
-        $configCatCache->get(['testKey']);
-    }
-
-    /**
-     * @return void
-     */
     public function testSetMethodReturnsTrue(): void
     {
         $storageClientMock = $this->createMock(StorageClient::class);
@@ -55,28 +33,27 @@ class ConfigCatCacheTest extends TestCase
 
         $configCatCache = new ConfigCatCache($storageClientMock);
 
-        self::assertEquals(true, $configCatCache->set('testKey', 'testValue'));
+        self::assertTrue($configCatCache->set('testKey', 'testValue'));
     }
 
-    /**
-     * @return void
-     */
-    public function testSetMethodWithWrongParameterTypeThrowsException(): void
+    public function testSetMethodWithTimeIntervalWillThrowException(): void
     {
         $storageClientMock = $this->createMock(StorageClient::class);
         $storageClientMock->expects(self::never())
             ->method('set');
 
-        $this->expectException(InvalidArgumentException::class);
-
         $configCatCache = new ConfigCatCache($storageClientMock);
-        //@phpstan-ignore-next-line
-        $configCatCache->set(['testKey'], 'testValue');
+
+        self::assertFalse(
+            $configCatCache->set(
+                'testKey',
+                '
+                testValue',
+                (new DateInterval('P7D')),
+            ),
+        );
     }
 
-    /**
-     * @return void
-     */
     public function testSetMethodCanNotSetValueAndReturnsFalse(): void
     {
         $storageClientMock = $this->createMock(StorageClient::class);
@@ -86,12 +63,9 @@ class ConfigCatCacheTest extends TestCase
 
         $configCatCache = new ConfigCatCache($storageClientMock);
 
-        self::assertEquals(false, $configCatCache->set('testKey', 'testValue'));
+        self::assertFalse($configCatCache->set('testKey', 'testValue'));
     }
 
-    /**
-     * @return void
-     */
     public function testDeleteMethodReturnsTrue(): void
     {
         $storageClientMock = $this->createMock(StorageClient::class);
@@ -101,28 +75,9 @@ class ConfigCatCacheTest extends TestCase
 
         $configCatCache = new ConfigCatCache($storageClientMock);
 
-        self::assertEquals(true, $configCatCache->delete('testKey'));
+        self::assertTrue($configCatCache->delete('testKey'));
     }
 
-    /**
-     * @return void
-     */
-    public function testDeleteMethodWithWrongParameterTypeThrowsException(): void
-    {
-        $storageClientMock = $this->createMock(StorageClient::class);
-        $storageClientMock->expects(self::never())
-            ->method('delete');
-
-        $this->expectException(InvalidArgumentException::class);
-
-        $configCatCache = new ConfigCatCache($storageClientMock);
-        //@phpstan-ignore-next-line
-        $configCatCache->delete(['testKey']);
-    }
-
-    /**
-     * @return void
-     */
     public function testClearMethodDeletesAllKeys(): void
     {
         $storageClientMock = $this->createMock(StorageClient::class);
@@ -132,12 +87,9 @@ class ConfigCatCacheTest extends TestCase
 
         $configCatCache = new ConfigCatCache($storageClientMock);
 
-        self::assertEquals(true, $configCatCache->clear());
+        self::assertTrue($configCatCache->clear());
     }
 
-    /**
-     * @return void
-     */
     public function testClearMethodHasNothingToDelete(): void
     {
         $storageClientMock = $this->createMock(StorageClient::class);
@@ -147,12 +99,9 @@ class ConfigCatCacheTest extends TestCase
 
         $configCatCache = new ConfigCatCache($storageClientMock);
 
-        self::assertEquals(false, $configCatCache->clear());
+        self::assertFalse($configCatCache->clear());
     }
 
-    /**
-     * @return void
-     */
     public function testGetMultipleMethodReturnsExpectedValues(): void
     {
         $storageClientMock = $this->createMock(StorageClient::class);
@@ -185,24 +134,6 @@ class ConfigCatCacheTest extends TestCase
         );
     }
 
-    /**
-     * @return void
-     */
-    public function testGetMultipleMethodWithWrongParameterTypeThrowsException(): void
-    {
-        $storageClientMock = $this->createMock(StorageClient::class);
-        $storageClientMock->expects(self::never())
-            ->method('getMulti');
-
-        $this->expectException(InvalidArgumentException::class);
-        $configCatCache = new ConfigCatCache($storageClientMock);
-        //@phpstan-ignore-next-line
-        $configCatCache->getMultiple('testKey1');
-    }
-
-    /**
-     * @return void
-     */
     public function testSetMultipleMethodReturnsExpectedValues(): void
     {
         $storageClientMock = $this->createMock(StorageClient::class);
@@ -218,8 +149,7 @@ class ConfigCatCacheTest extends TestCase
 
         $configCatCache = new ConfigCatCache($storageClientMock);
 
-        self::assertEquals(
-            true,
+        self::assertTrue(
             $configCatCache->setMultiple(
                 [
                     'testKey1' => 'testValue1',
@@ -230,9 +160,6 @@ class ConfigCatCacheTest extends TestCase
         );
     }
 
-    /**
-     * @return void
-     */
     public function testSetMultipleMethodCanNotSetValuesAndReturnsFalse(): void
     {
         $storageClientMock = $this->createMock(StorageClient::class);
@@ -242,8 +169,7 @@ class ConfigCatCacheTest extends TestCase
 
         $configCatCache = new ConfigCatCache($storageClientMock);
 
-        self::assertEquals(
-            false,
+        self::assertFalse(
             $configCatCache->setMultiple(
                 [
                     'testKey1' => 'testValue1',
@@ -254,25 +180,26 @@ class ConfigCatCacheTest extends TestCase
         );
     }
 
-    /**
-     * @return void
-     */
-    public function testSetMultipleMethodWithWrongParameterTypeThrowsException(): void
+    public function testSetMultipleMethodCanNotBeUsedWithDateInterval(): void
     {
         $storageClientMock = $this->createMock(StorageClient::class);
         $storageClientMock->expects(self::never())
             ->method('setMulti');
 
-        $this->expectException(InvalidArgumentException::class);
-
         $configCatCache = new ConfigCatCache($storageClientMock);
-        //@phpstan-ignore-next-line
-        $configCatCache->setMultiple('testKey1');
+
+        self::assertFalse(
+            $configCatCache->setMultiple(
+                [
+                    'testKey1' => 'testValue1',
+                    'testKey2' => 'testValue2',
+                    'testKey3' => 'testValue3',
+                ],
+                (new DateInterval('P7D')),
+            ),
+        );
     }
 
-    /**
-     * @return void
-     */
     public function testDeleteMultipleMethodReturnsTrue(): void
     {
         $storageClientMock = $this->createMock(StorageClient::class);
@@ -282,31 +209,11 @@ class ConfigCatCacheTest extends TestCase
 
         $configCatCache = new ConfigCatCache($storageClientMock);
 
-        self::assertEquals(
-            true,
+        self::assertTrue(
             $configCatCache->deleteMultiple(['testKey1', 'testKey2', 'testKey3']),
         );
     }
 
-    /**
-     * @return void
-     */
-    public function testDeleteMultipleMethodWithWrongParameterTypeThrowsException(): void
-    {
-        $storageClientMock = $this->createMock(StorageClient::class);
-        $storageClientMock->expects(self::never())
-            ->method('deleteMulti');
-
-        $this->expectException(InvalidArgumentException::class);
-
-        $configCatCache = new ConfigCatCache($storageClientMock);
-        //@phpstan-ignore-next-line
-        $configCatCache->deleteMultiple('testKey1');
-    }
-
-    /**
-     * @return void
-     */
     public function testHasMethodReturnsTrueIfKeyExists(): void
     {
         $storageClientMock = $this->createMock(StorageClient::class);
@@ -317,12 +224,9 @@ class ConfigCatCacheTest extends TestCase
 
         $configCatCache = new ConfigCatCache($storageClientMock);
 
-        self::assertEquals(true, $configCatCache->has('testKey'));
+        self::assertTrue($configCatCache->has('testKey'));
     }
 
-    /**
-     * @return void
-     */
     public function testHasMethodReturnsFalseIfKeyDoesNotExists(): void
     {
         $storageClientMock = $this->createMock(StorageClient::class);
@@ -333,22 +237,6 @@ class ConfigCatCacheTest extends TestCase
 
         $configCatCache = new ConfigCatCache($storageClientMock);
 
-        self::assertEquals(false, $configCatCache->has('testKey'));
-    }
-
-    /**
-     * @return void
-     */
-    public function testHasMethodWithWrongParameterTypeThrowsException(): void
-    {
-        $storageClientMock = $this->createMock(StorageClient::class);
-        $storageClientMock->expects(self::never())
-            ->method('get');
-
-        $this->expectException(InvalidArgumentException::class);
-
-        $configCatCache = new ConfigCatCache($storageClientMock);
-        //@phpstan-ignore-next-line
-        $configCatCache->has(['testKey']);
+        self::assertFalse($configCatCache->has('testKey'));
     }
 }

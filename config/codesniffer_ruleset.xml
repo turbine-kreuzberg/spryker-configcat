@@ -19,6 +19,13 @@
 
     <rule ref="vendor/spryker/code-sniffer/Spryker/ruleset.xml"/>
 
+    <rule ref="Spryker.Commenting.DocBlock">
+        <exclude name="Spryker.Commenting.DocBlock"/>
+        <exclude name="Spryker.Commenting.DocBlockParam"/>
+        <exclude name="Spryker.Commenting.DocBlockReturnVoid"/>
+        <exclude name="Spryker.Commenting.DocBlockParamAllowDefaultValue"/>
+    </rule>
+
     <rule ref="Generic.Files.LineLength">
         <properties>
             <property name="lineLimit" value="120"/>

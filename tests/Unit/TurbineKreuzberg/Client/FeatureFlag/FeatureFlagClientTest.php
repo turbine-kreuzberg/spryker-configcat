@@ -10,9 +10,6 @@ use TurbineKreuzberg\Client\FeatureFlag\Reader\FeatureFlagReader;
 
 class FeatureFlagClientTest extends TestCase
 {
-    /**
-     * @return void
-     */
     public function testIsFeatureOn(): void
     {
         $featureFlagReaderMock = $this->createMock(FeatureFlagReader::class);
@@ -30,12 +27,9 @@ class FeatureFlagClientTest extends TestCase
         $featureFlagClient = new FeatureFlagClient();
         $featureFlagClient->setFactory($featureFlagClientFactoryMock);
 
-        self::assertEquals(true, $featureFlagClient->isFeatureOn('testFeatureFlag'));
+        self::assertTrue($featureFlagClient->isFeatureOn('testFeatureFlag'));
     }
 
-    /**
-     * @return void
-     */
     public function testIsFeatureOff(): void
     {
         $featureFlagReaderMock = $this->createMock(FeatureFlagReader::class);
@@ -53,12 +47,9 @@ class FeatureFlagClientTest extends TestCase
         $featureFlagClient = new FeatureFlagClient();
         $featureFlagClient->setFactory($featureFlagClientFactoryMock);
 
-        self::assertEquals(false, $featureFlagClient->isFeatureOn('testFeatureFlag'));
+        self::assertFalse($featureFlagClient->isFeatureOn('testFeatureFlag'));
     }
 
-    /**
-     * @return void
-     */
     public function testIsFeatureFlagOnForUser(): void
     {
         $featureFlagReaderMock = $this->createMock(FeatureFlagReader::class);
@@ -76,8 +67,7 @@ class FeatureFlagClientTest extends TestCase
         $featureFlagClient = new FeatureFlagClient();
         $featureFlagClient->setFactory($featureFlagClientFactoryMock);
 
-        self::assertEquals(
-            false,
+        self::assertFalse(
             $featureFlagClient->isFeatureOnForUser('testFeatureFlag', new User('')),
         );
     }

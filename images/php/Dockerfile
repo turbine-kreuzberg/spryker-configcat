@@ -1,4 +1,4 @@
-FROM php:8.0.14-cli
+FROM php:8.3.20-cli
 
 RUN apt-get update && apt-get install -y \
     libxml2-dev \
