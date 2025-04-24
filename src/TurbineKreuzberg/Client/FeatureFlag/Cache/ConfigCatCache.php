@@ -2,6 +2,7 @@
 
 namespace TurbineKreuzberg\Client\FeatureFlag\Cache;
 
+use DateInterval;
 use Exception;
 use Psr\SimpleCache\CacheInterface;
 use Spryker\Client\Storage\StorageClientInterface;
@@ -9,49 +10,24 @@ use TurbineKreuzberg\Client\FeatureFlag\Exception\InvalidArgumentException;
 
 class ConfigCatCache implements CacheInterface
 {
-    private StorageClientInterface $storageClient;
-
-    /**
-     * @param \Spryker\Client\Storage\StorageClientInterface $storageClient
-     */
-    public function __construct(StorageClientInterface $storageClient)
+    public function __construct(private StorageClientInterface $storageClient)
     {
-        $this->storageClient = $storageClient;
     }
 
-    /**
-     * @param string $key
-     * @param mixed $default
-     *
-     * @throws \TurbineKreuzberg\Client\FeatureFlag\Exception\InvalidArgumentException
-     *
-     * @return mixed
-     */
-    public function get($key, $default = null): mixed
+    public function get(string $key, mixed $default = null): mixed
     {
-        if (!is_string($key)) {
-            throw new InvalidArgumentException();
-        }
-
         return $this->storageClient->get($key);
     }
 
     /**
-     * @param string $key
-     * @param mixed $value
-     * @param int|null $ttl
-     *
-     * @throws \TurbineKreuzberg\Client\FeatureFlag\Exception\InvalidArgumentException
-     *
-     * @return bool
+     * @param \DateInterval|int|null $ttl
      */
-    public function set($key, $value, $ttl = null): bool
+    public function set(string $key, mixed $value, null|int|DateInterval $ttl = null): bool
     {
-        if (!is_string($key)) {
-            throw new InvalidArgumentException();
-        }
-
         try {
+            if ($ttl instanceof DateInterval) {
+                return false;
+            }
             $this->storageClient->set($key, $value, $ttl);
 
             return true;
@@ -60,41 +36,19 @@ class ConfigCatCache implements CacheInterface
         }
     }
 
-    /**
-     * @param string $key
-     *
-     * @throws \TurbineKreuzberg\Client\FeatureFlag\Exception\InvalidArgumentException
-     *
-     * @return bool
-     */
-    public function delete($key): bool
+    public function delete(string $key): bool
     {
-        if (!is_string($key)) {
-            throw new InvalidArgumentException();
-        }
-
         $this->storageClient->delete($key);
 
         return true;
     }
 
-    /**
-     * @return bool
-     */
     public function clear(): bool
     {
         return $this->storageClient->deleteAll() > 0;
     }
 
-    /**
-     * @param array<string> $keys
-     * @param mixed $default
-     *
-     * @throws \TurbineKreuzberg\Client\FeatureFlag\Exception\InvalidArgumentException
-     *
-     * @return array<string>
-     */
-    public function getMultiple($keys, $default = null): array
+    public function getMultiple(iterable $keys, mixed $default = null): iterable
     {
         if (!is_array($keys)) {
             throw new InvalidArgumentException();
@@ -104,17 +58,18 @@ class ConfigCatCache implements CacheInterface
     }
 
     /**
-     * @param array<string> $values
      * @param \DateInterval|int|null $ttl
+     * @param iterable<mixed, mixed> $values
      *
      * @throws \TurbineKreuzberg\Client\FeatureFlag\Exception\InvalidArgumentException
-     *
-     * @return bool
      */
-    public function setMultiple($values, $ttl = null): bool
+    public function setMultiple(iterable $values, null|int|DateInterval $ttl = null): bool
     {
         if (!is_array($values)) {
             throw new InvalidArgumentException();
+        }
+        if ($ttl instanceof DateInterval) {
+            return false;
         }
 
         try {
@@ -126,37 +81,19 @@ class ConfigCatCache implements CacheInterface
         }
     }
 
-    /**
-     * @param array<string> $keys
-     *
-     * @throws \TurbineKreuzberg\Client\FeatureFlag\Exception\InvalidArgumentException
-     *
-     * @return bool
-     */
-    public function deleteMultiple($keys): bool
+    public function deleteMultiple(iterable $keys): bool
     {
         if (!is_array($keys)) {
             throw new InvalidArgumentException();
         }
 
-        $this->storageClient->deleteMulti((array)$keys);
+        $this->storageClient->deleteMulti($keys);
 
         return true;
     }
 
-    /**
-     * @param string $key
-     *
-     * @throws \TurbineKreuzberg\Client\FeatureFlag\Exception\InvalidArgumentException
-     *
-     * @return bool
-     */
-    public function has($key): bool
+    public function has(string $key): bool
     {
-        if (!is_string($key)) {
-            throw new InvalidArgumentException();
-        }
-
         return $this->storageClient->get($key) !== '';
     }
 }
