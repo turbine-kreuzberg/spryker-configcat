@@ -47,8 +47,7 @@ class ConfigCatCacheTest extends TestCase
         self::assertFalse(
             $configCatCache->set(
                 'testKey',
-                '
-                testValue',
+                'testValue',
                 (new DateInterval('P7D')),
             ),
         );
