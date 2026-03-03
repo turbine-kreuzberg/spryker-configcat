@@ -6,6 +6,7 @@ use ConfigCat\Cache\Psr16Cache;
 use ConfigCat\ClientOptions;
 use ConfigCat\ConfigCatClient;
 use ConfigCat\Log\LogLevel;
+use Spryker\Client\Customer\CustomerClientInterface;
 use Spryker\Client\Kernel\AbstractFactory;
 use Spryker\Client\Storage\StorageClientInterface;
 use TurbineKreuzberg\Client\FeatureFlag\Cache\ConfigCatCache;
@@ -20,6 +21,7 @@ class FeatureFlagFactory extends AbstractFactory
     {
         return new FeatureFlagReader(
             $this->createConfigCatClient(),
+            $this->getCustomerClient(),
             $this->getConfig(),
         );
     }
@@ -46,5 +48,10 @@ class FeatureFlagFactory extends AbstractFactory
     private function getStorageClient(): StorageClientInterface
     {
         return $this->getProvidedDependency(FeatureFlagDependencyProvider::STORAGE_CLIENT);
+    }
+
+    private function getCustomerClient(): CustomerClientInterface
+    {
+        return $this->getProvidedDependency(FeatureFlagDependencyProvider::CUSTOMER_CLIENT);
     }
 }

@@ -19,4 +19,22 @@ class FeatureFlagClient extends AbstractClient implements FeatureFlagClientInter
     {
         return $this->getFactory()->createFeatureFlagReader()->getValue($featureName, $user);
     }
+
+    public function isFeatureOnForUserInSession(string $featureName): bool
+    {
+        return $this->getFactory()->createFeatureFlagReader()->isFeatureOnForUserInSession($featureName);
+    }
+
+    public function getTextSetting(string $featureName): string
+    {
+        return $this->getFactory()->createFeatureFlagReader()->getTextSetting($featureName);
+    }
+
+    /**
+     * @return array<string, bool|string>
+     */
+    public function getAllFeatureFlags(): array
+    {
+        return $this->getFactory()->createFeatureFlagReader()->getAllFeatureFlags();
+    }
 }
