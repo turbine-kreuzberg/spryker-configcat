@@ -30,4 +30,11 @@ class FeatureFlagConfig extends AbstractBundleConfig
 
         return (bool)$configCatFeatureFlags[$featureName];
     }
+
+    public function getTextSettingFromConfigFile(string $featureName): string
+    {
+        $configCatFeatureFlags = $this->get(FeatureFlagConstants::CONFIG_CAT_FEATURE_FLAGS);
+
+        return (string)$configCatFeatureFlags[$featureName];
+    }
 }

@@ -55,4 +55,40 @@ class FeatureFlagReaderTest extends Unit
 
         self::assertTrue($featureFlagReader->getValue('feature_flag_name'));
     }
+
+    public function testReaderGetsTextSettingValueFromLocalConfigurationFile(): void
+    {
+        $configCatClientMock = $this->createMock(ConfigCatClient::class);
+        $configCatClientMock->expects(self::never())
+            ->method('getValue');
+
+        $featureFlagReader = new FeatureFlagReader(
+            $configCatClientMock,
+            new FeatureFlagConfig(),
+        );
+
+        self::assertSame(
+            'text_setting_value',
+            $featureFlagReader->getTextSetting('text_setting_in_config_file'),
+        );
+    }
+
+    public function testReaderGetsTextSettingValueFromConfigCatClient(): void
+    {
+        $configCatClientMock = $this->createMock(ConfigCatClient::class);
+        $configCatClientMock->expects(self::once())
+            ->method('getValue')
+            ->with('text_setting_name', '')
+            ->willReturn('text_setting_from_config_cat_client');
+
+        $featureFlagReader = new FeatureFlagReader(
+            $configCatClientMock,
+            new FeatureFlagConfig(),
+        );
+
+        self::assertSame(
+            'text_setting_from_config_cat_client',
+            $featureFlagReader->getTextSetting('text_setting_name'),
+        );
+    }
 }

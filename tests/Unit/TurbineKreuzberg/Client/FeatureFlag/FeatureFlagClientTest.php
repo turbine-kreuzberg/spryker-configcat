@@ -71,4 +71,58 @@ class FeatureFlagClientTest extends TestCase
             $featureFlagClient->isFeatureOnForUser('testFeatureFlag', new User('')),
         );
     }
+
+    public function testGetTextSettingReturnsTextSettingValue(): void
+    {
+        $featureFlagReaderMock = $this->createMock(FeatureFlagReader::class);
+        $featureFlagReaderMock
+            ->expects(self::once())
+            ->method('getTextSetting')
+            ->with('testFeatureFlag')
+            ->willReturn('testFeatureFlagValue');
+        $featureFlagClientFactoryMock = $this->createMock(FeatureFlagFactory::class);
+        $featureFlagClientFactoryMock
+            ->expects(self::once())
+            ->method('createFeatureFlagReader')
+            ->willReturn($featureFlagReaderMock);
+
+        $featureFlagClient = new FeatureFlagClient();
+        $featureFlagClient->setFactory($featureFlagClientFactoryMock);
+
+        self::assertSame(
+            'testFeatureFlagValue',
+            $featureFlagClient->getTextSetting('testFeatureFlag'),
+        );
+    }
+
+    public function testGetAllValuesReturnsMapWithFeatureFlagKeysAndValues(): void
+    {
+        $featureFlagReaderMock = $this->createMock(FeatureFlagReader::class);
+        $featureFlagReaderMock
+            ->expects(self::once())
+            ->method('getAllValues')
+            ->with(null)
+            ->willReturn(
+                [
+                    'booleanFeatureFlag' => true,
+                    'textSetting' => 'textSettingValue',
+                ],
+            );
+        $featureFlagClientFactoryMock = $this->createMock(FeatureFlagFactory::class);
+        $featureFlagClientFactoryMock
+            ->expects(self::once())
+            ->method('createFeatureFlagReader')
+            ->willReturn($featureFlagReaderMock);
+
+        $featureFlagClient = new FeatureFlagClient();
+        $featureFlagClient->setFactory($featureFlagClientFactoryMock);
+
+        self::assertSame(
+            [
+                'booleanFeatureFlag' => true,
+                'textSetting' => 'textSettingValue',
+            ],
+            $featureFlagClient->getAllValues(),
+        );
+    }
 }
