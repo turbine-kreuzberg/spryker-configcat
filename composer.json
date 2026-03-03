@@ -25,7 +25,8 @@
     "psr-4": {
       "Unit\\": "tests/Unit",
       "Functional\\": "tests/Functional",
-      "Acceptance\\": "tests/Acceptance"
+      "Acceptance\\": "tests/Acceptance",
+      "Generated\\": "tests/_support/Stubs/Generated"
     }
   },
   "authors": [
@@ -58,7 +59,7 @@
     "php": ">=8.3",
     "configcat/configcat-client": "^9.0.0",
     "psr/simple-cache": "^3.0.0",
-    "spryker/kernel": "^3.54.0",
+    "spryker/customer": "^7.74.1",
     "spryker/storage": "^3.18.0"
   },
   "require-dev": {
