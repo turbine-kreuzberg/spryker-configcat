@@ -31,7 +31,7 @@ class FeatureFlagFactory extends AbstractFactory
         return new ConfigCatClient(
             $this->getConfig()->getSdkKey(),
             [
-                ClientOptions::LOG_LEVEL => LogLevel::INFO,
+                ClientOptions::LOG_LEVEL => LogLevel::ERROR,
                 ClientOptions::CACHE => new Psr16Cache($this->createConfigCatCache()),
                 ClientOptions::CACHE_REFRESH_INTERVAL => $this->getConfig()->getCacheRefreshInterval(),
             ],
